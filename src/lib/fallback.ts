@@ -125,3 +125,13 @@ function toStock(r: Row): Stock {
 }
 
 export const SAMPLE_UNIVERSE: Stock[] = ROWS.map(toStock);
+
+/**
+ * The tickers the live screener fetches, kept in sync with the sample data by construction.
+ *
+ * FMP's free tier has no bulk/screener endpoint, so the live pool is assembled one symbol at
+ * a time (see `fmp.ts`). That makes the universe a fixed list rather than a query, and this
+ * curated large/mid-cap slice is it. Adding a symbol here costs ~2 requests per refresh cycle
+ * against the daily quota, so grow the list deliberately.
+ */
+export const UNIVERSE_SYMBOLS: string[] = ROWS.map((r) => r[0]);
